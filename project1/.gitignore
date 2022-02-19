@@ -1,4 +1,6 @@
 geckodriver
+uBlock0.chromium
+chromedriver
 venv
 *.xpi
 *.log
