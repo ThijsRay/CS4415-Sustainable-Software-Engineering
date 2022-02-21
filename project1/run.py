@@ -67,8 +67,8 @@ def visit_nu(browser):
     )).click()
 
     # Scroll through the page to load different elements
-    for _ in range(15):
-        ActionChains(browser).send_keys(Keys.PAGE_DOWN).pause(2).perform()
+    for _ in range(14):
+        ActionChains(browser).pause(4).send_keys(Keys.PAGE_DOWN).perform()
 
     browser.get_full_page_screenshot_as_file("/tmp/nu_with_ads.png")
 
