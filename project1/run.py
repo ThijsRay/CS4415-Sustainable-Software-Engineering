@@ -49,8 +49,11 @@ def visit_nu(browser):
     browser.switch_to.default_content()
 
     # Remove popup
-    wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[10]/div[2]/div/div/i"))).click()
-    
+    wait.until(EC.any_of(
+        EC.element_to_be_clickable((By.XPATH, "/html/body/div[10]/div[2]/div/div/i")),
+        EC.element_to_be_clickable((By.XPATH, "/html/body/div[11]/div[2]/div/div/i"))
+    )).click()
+
     # Scroll through the page to load different elements
     for _ in range(15):
         ActionChains(browser).send_keys(Keys.PAGE_DOWN).pause(2).perform()
