@@ -8,16 +8,23 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 
 def main():
-    browser = get_browser()
-    visit_nu(browser)
+    # Without ublock
+    browser = get_browser(False)
+    run_tests(browser)
     browser.quit();
 
-def get_browser():
-    return get_firefox(False)
+    # With ublock
+    browser = get_browser(True)
+    run_tests(browser)
+    browser.quit();
 
-def get_chromium():
+def get_browser(use_ublock):
+    return get_firefox(use_ublock)
+
+def get_chromium(use_ublock):
     options = ChromiumOptions()
-    options.add_argument("load-extension=/home/thijs/Projects/TU Delft/Sustainable/CS4415-Sustainable-Software-Engineering/project1/uBlock0.chromium")
+    if use_ublock:
+        options.add_argument("load-extension=/home/thijs/Projects/TU Delft/Sustainable/CS4415-Sustainable-Software-Engineering/project1/uBlock0.chromium")
     browser = webdriver.Chrome(options=options)
     browser.implicitly_wait(3)
     return browser
@@ -29,16 +36,21 @@ def get_firefox(use_ublock):
     options.set_preference("privacy.trackingprotection.fingerprinting.enabled", False)
     options.set_preference("privacy.trackingprotection.pbmode.enabled", False)
     options.set_preference("privacy.trackingprotection.annotate_channels", False)
-    # Todo: fix correct DNS server
-    options.set_preference("network.trr.mode", 2)
-    options.set_preference("network.trr.custom_uri", "https://1.1.1.1")
-    options.set_preference("network.trr.uri", "https://1.1.1.1")
+
+    # Set the DNS server to cloudflares non-ad blocking DNS server
+    options.set_preference("network.trr.mode", 3)
+    options.set_preference("network.trr.custom_uri", "https://1.1.1.1/dns-query")
+    options.set_preference("network.trr.uri", "https://1.1.1.1/dns-query")
+
     browser = webdriver.Firefox(options=options)
     if use_ublock:
         browser.install_addon("/home/thijs/Projects/TU Delft/Sustainable/CS4415-Sustainable-Software-Engineering/project1/uBlock0_1.41.5b2.firefox.signed.xpi", temporary=True)
     browser.implicitly_wait(3)
     return browser
 
+
+def run_tests(browser):
+    visit_nu(browser)
 
 def visit_nu(browser):
     browser.get("https://nu.nl")
