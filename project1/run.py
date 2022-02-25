@@ -10,11 +10,11 @@ from selenium.webdriver.common.action_chains import ActionChains
 def main():
     # Without ublock
     browser = get_browser(False)
-    run_tests(browser)
-    browser.quit();
+    #run_tests(browser)
+    #browser.quit();
 
     # With ublock
-    browser = get_browser(True)
+    #browser = get_browser(True)
     run_tests(browser)
     browser.quit();
 
@@ -50,7 +50,8 @@ def get_firefox(use_ublock):
 
 
 def run_tests(browser):
-    visit_nu(browser)
+    #visit_nu(browser)
+    visit_sparknotes(browser)
 
 def visit_nu(browser):
     browser.get("https://nu.nl")
@@ -67,10 +68,21 @@ def visit_nu(browser):
     )).click()
 
     # Scroll through the page to load different elements
-    for _ in range(14):
-        ActionChains(browser).pause(4).send_keys(Keys.PAGE_DOWN).perform()
+    for _ in range(13):
+        ActionChains(browser).pause(5).send_keys(Keys.PAGE_DOWN).perform()
+    ActionChains(browser).pause(5).send_keys(Keys.HOME).pause(5).perform()
 
     browser.get_full_page_screenshot_as_file("/tmp/nu_with_ads.png")
+
+def visit_sparknotes(browser):
+    browser.get("https://www.sparknotes.com/cs/")
+    wait = WebDriverWait(browser, 10)
+    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="onetrust-accept-btn-handler"]'))).click()
+
+    for _ in range(3):
+        ActionChains(browser).pause(5).send_keys(Keys.PAGE_DOWN).perform()
+
+    ActionChains(browser).pause(5).send_keys(Keys.HOME).pause(5).perform()
 
 if __name__ == "__main__":
     main()
