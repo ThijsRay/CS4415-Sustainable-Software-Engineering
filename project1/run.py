@@ -10,11 +10,11 @@ from selenium.webdriver.common.action_chains import ActionChains
 def main():
     # Without ublock
     browser = get_browser(False)
-    #run_tests(browser)
-    #browser.quit();
+    run_tests(browser)
+    browser.quit();
 
     # With ublock
-    #browser = get_browser(True)
+    browser = get_browser(True)
     run_tests(browser)
     browser.quit();
 
@@ -51,7 +51,14 @@ def get_firefox(use_ublock):
 
 def run_tests(browser):
     #visit_nu(browser)
-    visit_sparknotes(browser)
+    #visit_sparknotes(browser)
+    #visit_dw(browser)
+    #visit_wikipedia(browser)
+    #visit_stackoverflow(browser)
+    #visit_nytimes(browser)
+    #visit_hn(browser)
+    #visit_reddit(browser)
+    pass
 
 def visit_nu(browser):
     browser.get("https://nu.nl")
@@ -77,11 +84,58 @@ def visit_nu(browser):
 def visit_sparknotes(browser):
     browser.get("https://www.sparknotes.com/cs/")
     wait = WebDriverWait(browser, 10)
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="onetrust-accept-btn-handler"]'))).click()
+    wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="onetrust-accept-btn-handler"]')))
+    browser.execute_script('$("#onetrust-accept-btn-handler").click()')
 
     for _ in range(3):
         ActionChains(browser).pause(5).send_keys(Keys.PAGE_DOWN).perform()
 
+    ActionChains(browser).pause(5).send_keys(Keys.HOME).pause(5).perform()
+
+def visit_dw(browser):
+    browser.get("https://www.dw.com")
+    wait = WebDriverWait(browser, 10)
+    wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div[2]/a[2]'))).click()
+    for _ in range(4):
+        ActionChains(browser).pause(5).send_keys(Keys.PAGE_DOWN).perform()
+
+    ActionChains(browser).pause(5).send_keys(Keys.HOME).pause(5).perform()
+
+def visit_wikipedia(browser):
+    browser.get("https://en.wikipedia.org/wiki/Main_Page")
+    search = browser.find_element(By.ID, "searchInput")
+    search.send_keys("TU Delft")
+    search = browser.find_element(By.ID, "searchButton").click()
+    for _ in range(7):
+        ActionChains(browser).pause(5).send_keys(Keys.PAGE_DOWN).perform()
+    ActionChains(browser).pause(5).send_keys(Keys.HOME).pause(5).perform()
+
+def visit_stackoverflow(browser):
+    browser.get("https://stackoverflow.com/questions/tagged/selenium")
+    wait = WebDriverWait(browser, 10)
+    wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[4]/div/button[1]'))).click()
+    for _ in range(2):
+        ActionChains(browser).pause(5).send_keys(Keys.PAGE_DOWN).perform()
+    ActionChains(browser).pause(5).send_keys(Keys.HOME).pause(5).perform()
+
+def visit_nytimes(browser):
+    browser.get("https://nytimes.com")
+    wait = WebDriverWait(browser, 10)
+    wait.until(EC.element_to_be_clickable((By.XPATH, '//button[@data-testid="GDPR-accept"]'))).click()
+    for _ in range(12):
+        ActionChains(browser).pause(5).send_keys(Keys.PAGE_DOWN).perform()
+    ActionChains(browser).pause(5).send_keys(Keys.HOME).pause(5).perform()
+
+def visit_hn(browser):
+    browser.get("https://news.ycombinator.com")
+    ActionChains(browser).pause(5).send_keys(Keys.PAGE_DOWN).pause(5).perform()
+
+def visit_reddit(browser):
+    browser.get("https://reddit.com")
+    wait = WebDriverWait(browser, 10)
+    wait.until(EC.element_to_be_clickable((By.XPATH, '//button[normalize-space()="Accept all"]'))).click()
+    for _ in range(10):
+        ActionChains(browser).pause(5).send_keys(Keys.PAGE_DOWN).perform()
     ActionChains(browser).pause(5).send_keys(Keys.HOME).pause(5).perform()
 
 if __name__ == "__main__":
