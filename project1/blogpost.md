@@ -14,7 +14,15 @@ Which resources did we use (Jouleit)
 Time between tests
 Repetitions
 --->
-Blocking advertisements on computers can be done by using an ad blocker like [uBlock](https://github.com/gorhill/uBlock/), which we used to load websites without the advertisements.
+Blocking advertisements on computers can be done by using an ad blocker like [uBlock](https://github.com/gorhill/uBlock/), which we used to load websites without the advertisements. In combination with the use of selanium, we were able to automate the visit of different websites, sucht that the experiments could be repeated XX times. With the jouleit](https://github.com/powerapi-ng/jouleit) script from powerapi, the power consumptions during these website visits was measured. Now we just need to find some interesting websites to measure the power consumption of. We came up with the following list of websites, ranging from no advertisements at all (Wikipedia) to a lot of ads on a single page (XXXXXXXX);
+- Wikipedia
+- nu.nl
+- sparknotes
+- Deutsche Well
+- Hackernews
+
+We decided to not preheat the system as normally is done in such tests, since the preheating is not done in regular use of the webbrowser. A user normally loads website one by one, therefore the CPU would not be pre-heated in a regular scenario.
+
 
 <!--- 
 Results & Graph(s):
@@ -23,10 +31,12 @@ Show stanadard deviation
 
 --->
 
+<!--- Image of with and without ads (boxplot and/or violin plot) --->
+
 <!--- 
 Discussion:
-What went good 
-where can the testsbe improved  
+What went right 
+where can the tests be improved  
 What is the impact on society?
 --->
 
@@ -34,4 +44,8 @@ What is the impact on society?
 Conclusion:
 How many kilometers can we ride if we do a 1000 page loads?
 --->
+
+
+Would you like to reproduce the work we did? Use the following package of code we used to get this data.
+
 Written by: Katja Schmahl & Thijs Raymakers & Jeffrey Bouman
