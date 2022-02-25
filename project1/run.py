@@ -6,20 +6,36 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
+from argparse import ArgumentParser
 
 def main():
-    # Without ublock
-    browser = get_browser(False)
-    run_tests(browser)
-    browser.quit();
+    sites = {
+        "nu": visit_nu,
+        "sparknotes": visit_sparknotes,
+        "dw": visit_dw,
+        "wikipedia": visit_wikipedia,
+        "stackoverflow": visit_stackoverflow,
+        "nytimes": visit_nytimes,
+        "hackernews": visit_hn,
+        "reddit": visit_reddit
+    }
 
-    # With ublock
-    browser = get_browser(True)
-    run_tests(browser)
-    browser.quit();
+    browsers = {
+        "firefox": get_firefox,
+        "chromium": get_chromium,
+    }
 
-def get_browser(use_ublock):
-    return get_firefox(use_ublock)
+    parser = ArgumentParser(description='Run selenium tests with or without uBlock Origin')
+    parser.add_argument('site', choices=sites.keys(), help="Which site to test")
+    parser.add_argument('use_adblock', type=bool, help="Whether to use an adblocker")
+    parser.add_argument('--repeat', default=1, type=int, help="How many times to repeat the test with the same browser instance")
+    parser.add_argument('--browser', default="firefox", type=str, choices=browsers.keys(), help="The browser engine that will be used to run the tests. This defaults to Firefox.")
+    args = parser.parse_args()
+    
+    browser = browsers[args.browser](args.use_adblock)
+    for _ in range(args.repeat):
+        sites[args.site](browser)
+    browser.quit();
 
 def get_chromium(use_ublock):
     options = ChromiumOptions()
@@ -47,18 +63,6 @@ def get_firefox(use_ublock):
         browser.install_addon("/home/thijs/Projects/TU Delft/Sustainable/CS4415-Sustainable-Software-Engineering/project1/uBlock0_1.41.5b2.firefox.signed.xpi", temporary=True)
     browser.implicitly_wait(3)
     return browser
-
-
-def run_tests(browser):
-    #visit_nu(browser)
-    #visit_sparknotes(browser)
-    #visit_dw(browser)
-    #visit_wikipedia(browser)
-    #visit_stackoverflow(browser)
-    #visit_nytimes(browser)
-    #visit_hn(browser)
-    #visit_reddit(browser)
-    pass
 
 def visit_nu(browser):
     browser.get("https://nu.nl")
