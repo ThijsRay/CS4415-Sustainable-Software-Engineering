@@ -6,18 +6,22 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
+# from pyJoules.energy_meter import measure_energy
+# import powertop
 
 def main():
-    browser = get_browser()
-    visit_nu(browser)
-    browser.quit();
+    use_adblocker = True
+    browser = get_browser(use_adblocker)
+    visit_nu(browser, use_adblocker)
+    browser.quit()
 
-def get_browser():
-    return get_firefox(False)
+def get_browser(use_ublock):
+    return get_firefox(use_ublock)
 
-def get_chromium():
+def get_chromium(use_ublock):
     options = ChromiumOptions()
-    options.add_argument("load-extension=/home/thijs/Projects/TU Delft/Sustainable/CS4415-Sustainable-Software-Engineering/project1/uBlock0.chromium")
+    if use_ublock:
+        options.add_argument("load-extension=/home/katja/uBlock0.chromium")
     browser = webdriver.Chrome(options=options)
     browser.implicitly_wait(3)
     return browser
@@ -35,12 +39,12 @@ def get_firefox(use_ublock):
     options.set_preference("network.trr.uri", "https://1.1.1.1")
     browser = webdriver.Firefox(options=options)
     if use_ublock:
-        browser.install_addon("/home/thijs/Projects/TU Delft/Sustainable/CS4415-Sustainable-Software-Engineering/project1/uBlock0_1.41.5b2.firefox.signed.xpi", temporary=True)
+        browser.install_addon("/home/katja/uBlock0_1.41.7b0.firefox.signed.xpi", temporary=True)
     browser.implicitly_wait(3)
     return browser
 
 
-def visit_nu(browser):
+def visit_nu(browser, use_ublock):
     browser.get("https://nu.nl")
     # accept cookies
     wait = WebDriverWait(browser, 10)
@@ -49,13 +53,16 @@ def visit_nu(browser):
     browser.switch_to.default_content()
 
     # Remove popup
-    wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[10]/div[2]/div/div/i"))).click()
+    elem_path = "/html/body/div[11]/div[2]/div/div/i"
+    if use_ublock:
+        elem_path = "/html/body/div[10]/div[2]/div/div/i"
+    wait.until(EC.element_to_be_clickable((By.XPATH, elem_path))).click()
     
     # Scroll through the page to load different elements
     for _ in range(15):
         ActionChains(browser).send_keys(Keys.PAGE_DOWN).pause(2).perform()
 
-    browser.get_full_page_screenshot_as_file("/tmp/nu_with_ads.png")
+    # browser.get_full_page_screenshot_as_file("/tmp/nu_with_ads.png")
 
 if __name__ == "__main__":
     main()
