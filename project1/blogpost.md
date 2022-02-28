@@ -14,12 +14,18 @@ Which resources did we use (Jouleit)
 Time between tests
 Repetitions
 --->
-Blocking advertisements on computers can be done by using an ad blocker like [uBlock](https://github.com/gorhill/uBlock/), which we used to load websites without the advertisements. In combination with the use of selanium, we were able to automate the visit of different websites, sucht that the experiments could be repeated XX times. With the jouleit](https://github.com/powerapi-ng/jouleit) script from powerapi, the power consumptions during these website visits was measured. Now we just need to find some interesting websites to measure the power consumption of. We came up with the following list of websites, ranging from no advertisements at all (Wikipedia) to a lot of ads on a single page (XXXXXXXX);
-- Wikipedia
-- nu.nl
-- sparknotes
-- Deutsche Well
-- Hackernews
+Blocking advertisements on computers can be done by using an ad blocker like [uBlock](https://github.com/gorhill/uBlock/), which we used to load websites without the advertisements. In combination with the use of selenium, we were able to automate the visit of different websites, such that the experiments could be repeated XX times. With the jouleit](https://github.com/powerapi-ng/jouleit) script from powerapi, the power consumptions during these website visits was measured. Now we just need to find some interesting websites to measure the power consumption of. We came up with the following list of websites, ranging from no advertisements at all to a lot of ads on a single page.
+
+| Website | Ad intensity |
+| --- | --- |
+| Wikipedia | No ads |
+| nu.nl | Many ads |
+| Sparknotes | No ads |
+| Deutsche Well | |
+| Hackernews | |
+| Stackoverflow | |
+| New York Times | |
+| Reddit | |
 
 We decided to not preheat the system as normally is done in such tests, since the preheating is not done in regular use of the webbrowser. A user normally loads website one by one, therefore the CPU would not be pre-heated in a regular scenario.
 
@@ -32,7 +38,7 @@ Show stanadard deviation
 --->
 
 <!--- Image of with and without ads (boxplot and/or violin plot) --->
-
+![Large boxplot comparing adblocker to no adblocker](results/boxplot-complete.png)
 <!--- 
 Discussion:
 What went right 
