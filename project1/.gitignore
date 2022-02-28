@@ -1,6 +1,8 @@
+__pycache__
 geckodriver
 uBlock0.chromium
 chromedriver
 venv
 *.xpi
+results
 *.log

@@ -8,8 +8,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from argparse import ArgumentParser
 
-def main():
-    sites = {
+def get_sites():
+    return {
         "nu": visit_nu,
         "sparknotes": visit_sparknotes,
         "dw": visit_dw,
@@ -20,10 +20,16 @@ def main():
         "reddit": visit_reddit
     }
 
-    browsers = {
+def get_browsers():
+    return {
         "firefox": get_firefox,
         "chromium": get_chromium,
     }
+
+
+def main():
+    sites = get_sites()
+    browsers = get_browsers()
 
     parser = ArgumentParser(description='Run selenium tests with or without uBlock Origin')
     parser.add_argument('site', choices=sites.keys(), help="Which site to test")
