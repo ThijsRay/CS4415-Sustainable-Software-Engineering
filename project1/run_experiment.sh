@@ -22,7 +22,7 @@ source venv/bin/activate
 export PATH=$PATH:$(pwd)
 
 #Change the for loop to increase the amount of iterations
-for i in {0..5}
+for i in {0..14}
 do
     mkdir -p "$__dir/results"
     SUBDIR="$__dir/results/$DATE-$i"
