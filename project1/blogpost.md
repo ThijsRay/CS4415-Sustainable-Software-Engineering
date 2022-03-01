@@ -20,7 +20,7 @@ Blocking advertisements on computers can be done by using an ad blocker like [uB
 | --- | --- |
 | Wikipedia | No ads |
 | nu.nl | Many ads |
-| Sparknotes | No ads |
+| Sparknotes | |
 | Deutsche Well | |
 | Hackernews | |
 | Stackoverflow | |
@@ -36,9 +36,23 @@ Is it a Normal distribution
 Show stanadard deviation
 
 --->
+### Results
+
+| Website | Average Energy Consumption with adblocker (W) | Average Energy Consumption without adblocker (W)| Change |
+| --- | --- | --- | --- |
+| Nu | 0.151 | 0.4206 | -64.09% |
+| Sparknotes | 0.2518 | 0.4466 | -43.62% |
+| Dw | 0.2509 | 0.2604 | -3.66% |
+| Wikipedia | 0.1773 | 0.1433 | 23.71% |
+| Stackoverflow | 0.283 | 0.2598 | 8.95% |
+| Nytimes | 0.2366 | 0.2751 | -13.98% |
+| Hackernews | 0.4221 | 0.3462 | 21.91% |
+| Reddit | 0.3367 | 0.3111 | 8.22% |
+| Average | 0.2395 | 0.3097 | -22.67% |
+
 
 <!--- Image of with and without ads (boxplot and/or violin plot) --->
-![Large boxplot comparing adblocker to no adblocker](results/boxplot-complete.png)
+![Large boxplot comparing adblocker to no adblocker](img/boxplot-complete-power of cpu.png)
 <!--- 
 Discussion:
 What went right 
