@@ -15,6 +15,7 @@ UNIT_OF_METRICS = {
     "energy consumption of cpu": "J",
     "duration": "s"
 }
+GENERATE_FOR_EVERY_SITE = False
 
 def main():
     sites = [key for key in get_sites().keys()]
@@ -63,8 +64,9 @@ def visualize(sites, date, n, metric):
 
 
     sites.append("average")
-    for site in sites:
-        generate_boxplot_per_site(data, site, n, metric)
+    if GENERATE_FOR_EVERY_SITE:
+        for site in sites:
+            generate_boxplot_per_site(data, site, n, metric)
 
     generate_large_boxplot(data, sites, n, metric)
     print_table(data, sites, n, metric)
@@ -144,7 +146,7 @@ def generate_large_boxplot(data, sites, n, metric):
     plt.ylabel(f"{metric.capitalize()} ({UNIT_OF_METRICS[metric]})")
     plt.title(f"Energy comparison of using adblocker (n={n})")
     plt.tight_layout()
-    plt.savefig(f'{PLOT_FOLDER}/boxplot-complete-{metric}.png')
+    plt.savefig(f'{PLOT_FOLDER}/boxplot-complete-{metric.replace(" ", "-")}.png')
     # plt.show()
 
 def print_table(data, sites, n, metric):

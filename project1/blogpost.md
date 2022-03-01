@@ -53,7 +53,7 @@ Show stanadard deviation
 
 
 <!--- Image of with and without ads (boxplot and/or violin plot) --->
-![Large boxplot comparing adblocker to no adblocker](img/boxplot-complete-power of cpu.png)
+![Large boxplot comparing adblocker to no adblocker](img/boxplot-complete-power-of-cpu.png)
 <!--- 
 Discussion:
 What went right 
