@@ -14,18 +14,19 @@ Which resources did we use (Jouleit)
 Time between tests
 Repetitions
 --->
-Blocking advertisements on computers can be done by using an ad blocker like [uBlock](https://github.com/gorhill/uBlock/), which we used to load websites without the advertisements. In combination with the use of selenium, we were able to automate the visit of different websites, such that the experiments could be repeated XX times. With the jouleit](https://github.com/powerapi-ng/jouleit) script from powerapi, the power consumptions during these website visits was measured. Now we just need to find some interesting websites to measure the power consumption of. We came up with the following list of websites, ranging from no advertisements at all to a lot of ads on a single page.
 
-| Website | Ad intensity |
-| --- | --- |
-| Wikipedia | No ads |
-| nu.nl | Many ads |
-| Sparknotes | |
-| Deutsche Well | |
-| Hackernews | |
-| Stackoverflow | |
-| New York Times | |
-| Reddit | |
+Blocking advertisements on computers can be done by using an ad blocker like [uBlock](https://github.com/gorhill/uBlock/), which we used to load websites without the advertisements. In combination with the use of selenium, we were able to automate the visit of different websites, such that the experiments could be repeated XX times. With the [jouleit](https://github.com/powerapi-ng/jouleit) script from powerapi, the power consumptions during these website visits was measured. Now we just need to find some interesting websites to measure the power consumption of. We came up with the following list of websites, ranging from no advertisements at all to a lot of ads on a single page.
+
+| Website | Ad intensity | # of requests |
+| --- | --- | --- |
+| Wikipedia | No ads | 0 (0%) |
+| nu.nl | Many ads | 12 (7%) |
+| Sparknotes | No ads | 7 (16%) |
+| Deutsche Well | | 11 (7%) |
+| Hackernews | No ads | 0 (0%) |
+| Stackoverflow | | 2 (7%) |
+| New York Times | | 15 (10%) |
+| Reddit | | 32 (3%) |
 
 We decided to not preheat the system as normally is done in such tests, since the preheating is not done in regular use of the webbrowser. A user normally loads website one by one, therefore the CPU would not be pre-heated in a regular scenario.
 
