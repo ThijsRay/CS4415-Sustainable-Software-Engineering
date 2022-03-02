@@ -46,9 +46,8 @@ Time between tests
 Repetitions
 --->
 
-Blocking advertisements on computers can be done by using an ad blocker. like the free and open-source ad
-blocker [uBlock Origin](https://github.com/gorhill/uBlock/). We wrote automated tests
-for [Selenium](https://www.selenium.dev/) to make experiment as replicable as possible. The tests were run with Selenium
+Blocking advertisements on computers can be done by using an ad blocker, like the free and open-source ad
+blocker [uBlock Origin](https://github.com/gorhill/uBlock/). We wrote automated tests for [Selenium](https://www.selenium.dev/) to make experiment as replicable as possible. The tests were run with Selenium
 with [geckodriver](https://github.com/mozilla/geckodriver).
 
 The testsuite was executed on the same set of sites, with the only difference being whether uBlock Origin was installed.
@@ -76,7 +75,7 @@ is blocking, which also takes into account blocked requests that are less visibl
 We decided to not preheat the system as normally is done in such tests, since the preheating is not done in regular use
 of the webbrowser either. A user normally loads website one by one, therefore the CPU would not be pre-heated in a
 regular scenario. In order to prevent as much deviation between tests as possible we opted to use a wired connection to
-the internet and disable bluetooth as well. No other programs were running during execution. In the figure below, it can
+the internet and disabled bluetooth as well. No other programs were running during execution. In the figure below, it can
 be seen that this resulted in quite consistent results for the experiment. Only 2 out of 240 experiments did not finish
 successfully, so we removed these from the data. We also chose to remove the outliers where execution time was above 100
 seconds for the further results. These runs most likely had some connectivity issues that would impact the energy
@@ -105,9 +104,8 @@ Show stanadard deviation
 
 --->
 
-The results can be seen in the table below. It can be clearly seen that when scrolling on a page without any ads (
-Wikipedia and Hackernews), using an adblocker consumes more energy. This energy consumption can be explained by the fact
-that the adblocker still has to go through the page to see if there are any ads. The same can be see in a milder version
+The results can be seen in the table below. It can be clearly seen that when scrolling on a page without any ads (Wikipedia and Hackernews), using an adblocker consumes more energy. This energy consumption can be explained by the fact
+that the adblocker still has to go through the page to see if there are any ads. The same can be seen in a milder version
 for the webpages with only a few ads. The extra energy consumption is here partly compensated by the reduced cost from
 not having to load the images and animations in the ad. When visiting websites with higher ad intensity, this saved
 effort is actually so much, that quite a lot of energy can be saved by turning on an adblocker.
