@@ -113,17 +113,17 @@ webpages with only a few ads. The extra energy consumption is here partly compen
 having to load the images and animations in the ad. When visiting websites with higher ad intensity, this saved effort
 is actually so much, that quite a lot of energy can be saved by turning on an adblocker.
 
-| Website | Average power with adblocker (W) | Average power without adblocker (W)| Change of power usage from |
+| Website | Average power with adblocker (W) | Average power without adblocker (W)| Change of power usage |
 | --- | --- | --- | --- |
-| Wikipedia | 3.54 | 3.256 | 0.2837 (8.7%) |
-| Hackernews | 5.176 | 4.618 | 0.5579 (12.1%) |
-| Stackoverflow | 4.295 | 4.384 | -0.08828 (-2.0%) |
-| Reddit | 5.011 | 4.841 | 0.1707 (3.5%) |
+| Wikipedia | 3.54 | 3.256 | 0.284 (8.7%) |
+| Hackernews | 5.176 | 4.618 | 0.558 (12.1%) |
+| Stackoverflow | 4.295 | 4.384 | -0.0883 (-2.0%) |
+| Reddit | 5.011 | 4.841 | 0.171 (3.5%) |
 | Sparknotes | 4.508 | 5.628 | -1.12 (-19.9%) |
-| Dw | 4.117 | 4.442 | -0.3247 (-7.3%) |
-| Nu | 3.523 | 6.091 | -2.568 (-42.2%) |
-| Nytimes | 4.116 | 4.637 | -0.5212 (-11.2%) |
-| Mean | 4.226 | 4.785 | -0.5591 (-11.7%) |
+| Dw | 4.117 | 4.442 | -0.325 (-7.3%) |
+| Nu | 3.523 | 6.091 | -2.57 (-42.2%) |
+| Nytimes | 4.116 | 4.637 | -0.521 (-11.2%) |
+| Mean | 4.226 | 4.785 | -0.559 (-11.7%) |
 
 In the figure below, it can be seen that power consumption was not completely stable over iterations. The red boxplots
 show the distribution of the results without adblocker, the blue boxplot with uBlock activated. The websites on the left
