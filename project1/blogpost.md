@@ -133,7 +133,7 @@ stable, but the distributions seem to show that the effect of the adblocker is d
 
 Due to the small sample size of websites we are unable to say something about the entire surfing behaviour of users.
 Especially because of the distributed nature of the internet. If one would like to determine the amount of energy saved,
-the shown ads also play a role. If a lot of animated ads are shown at the moment, it might be more effective to use an
+the type of the shown ads also play a role. If a lot of animated ads are shown at the moment, it might be more effective to use an
 ad blocker compared to a moment when only static ads are shown.
 
 <!--- 
@@ -148,14 +148,15 @@ What are the implications from this experiment? First of all, from the perspecti
 your adblocker has significant impact on the amount of power you use while browsing. Especially if you are often on
 pages with a lot of ads, it could be beneficial, from both a sustainability and a battery life standpoint, to use an
 adblocker. On average over these websites, it already saves about half a Watt of power consumption. We only used the
-uBlock adblocker, so more research can be done to compare different adblockers, but we believe this is probably also the
+uBlock Origin adblocker, so more research can be done to compare different adblockers, but we believe this is probably also the
 case when using a different program.
 
 As an example, we made the calculation for one of the high ad intensive websites from our experiment. The Dutch
 newspage 'nu.nl', which shows 2 banners, one static ad and an advertisement that scrolls along. This page reports having
 around [800 million page loads per month](https://www.dpgmedia.nl/merken/nu) . Our experiment shows an average energy
-saving of 228 J for every load, this means that 228 * 800 million * 12 = 2188.8 Gj could be saved every year if everyone
-were to use an adblocker just for this one website. This is equivalent to driving a Tesla 3 for 3850 kilometers.
+saving of 228 J for every load, this means that 228 * 800 million * 12 = 2188.8 GJ or 608MWh could be saved every year if everyone
+were to use an adblocker just for this one website. This is rougly equivalent to powering 220 Dutch households for an entire year or 
+to driving a Tesla 3 for 3850 kilometers.
 
 Our experiment also shows that there is still a lot to gain in the efficiency of the adblocker. If it would be able to
 recognize when there are no ads, it would not cost as much extra when browsing on these pages. There may be many more
@@ -184,8 +185,8 @@ also, what is the effect of using a smaller or larger screen or activating Firef
 
 In our opinion, the real, long-term solution would however be to make wider changes to the system. If it would be
 possible to pay a small monthly fee, which is spread over all webpages you visit, we could save energy and frustration
-from advertisements, while keeping the companies providing us with news and information with income. We understand this
-would be a complicated and long process to change, but maybe this small experiment can provide a little extra
+from advertisements, while still enabling companies that provide us with news, information and entertainment to have an income.
+We understand this would be a complicated and long process to change, but maybe this small experiment can provide a little extra
 motivation!
 
 <!---
@@ -194,6 +195,6 @@ How many kilometers can we ride if we do a 1000 page loads?
 --->
 
 
-Would you like to reproduce the work we did? Use the following package of code we used to get this data.
+Would you like to reproduce the work we did? The files that we used to create these results can be found on [GitHub](https://github.com/ThijsRay/CS4415-Sustainable-Software-Engineering).
 
 Written by: Katja Schmahl & Thijs Raymakers & Jeffrey Bouman
