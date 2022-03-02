@@ -113,7 +113,7 @@ webpages with only a few ads. The extra energy consumption is here partly compen
 having to load the images and animations in the ad. When visiting websites with higher ad intensity, this saved effort
 is actually so much, that quite a lot of energy can be saved by turning on an adblocker.
 
-| Website | Average power of cpu with adblocker (W) | Average power of cpu without adblocker (W)| Change of power of cpu from adblocker |
+| Website | Average power with adblocker (W) | Average power without adblocker (W)| Change of power usage from |
 | --- | --- | --- | --- |
 | Wikipedia | 3.54 | 3.256 | 0.2837 (8.7%) |
 | Hackernews | 5.176 | 4.618 | 0.5579 (12.1%) |
