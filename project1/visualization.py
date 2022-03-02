@@ -18,7 +18,7 @@ UNIT_OF_METRICS = {
 GENERATE_FOR_EVERY_SITE = False
 
 def main():
-    sites = [key for key in get_sites().keys()]
+    sites = ["wikipedia", "hackernews", "stackoverflow", "reddit", "sparknotes", "dw", "nu", "nytimes"]
 
     parser = ArgumentParser(description='Run selenium tests with or without uBlock Origin')
     parser.add_argument('--date',type=int, default=1646053732, help="Which amount of seconds is used as date in results folders")
@@ -37,7 +37,10 @@ def read_result(site, date, i, adblocker_used):
         while line != "":
             usage = read_usage(line)
             if usage is not None:
-                results.append(usage)
+                if usage[2] > 100000000:
+                    print("Removed a duration outlier")
+                else:
+                    results.append(usage)
             line = file.readline()
     if results != []:
         return np.average(results, axis=0)
@@ -150,14 +153,15 @@ def generate_large_boxplot(data, sites, n, metric):
     # plt.show()
 
 def print_table(data, sites, n, metric):
-    table_string = f"| Website | Average {metric} with adblocker ({UNIT_OF_METRICS[metric]}) | Average {metric} without adblocker ({UNIT_OF_METRICS[metric]})| Change |\n| --- | --- | --- | --- |"
+    table_string = f"| Website | Average {metric} with adblocker ({UNIT_OF_METRICS[metric]}) | Average {metric} without adblocker ({UNIT_OF_METRICS[metric]})| Change of {metric} from adblocker |\n| --- | --- | --- | --- |"
 
     for site in sites:
         extracted = extract_metric_of_site(data, site, metric)
         with_adblocker = np.average(extracted[0])
         without_adblocker = np.average(extracted[1])
-        percentual_change = round(float(with_adblocker - without_adblocker) / float(without_adblocker) * 100.0, 2)
-        table_string += f"\n| {site.capitalize()} | {sigfig.round(with_adblocker, sigfigs=4)} | {sigfig.round(without_adblocker, sigfigs=4)} | {percentual_change}% |"
+        absolute_change = sigfig.round(with_adblocker - without_adblocker, sigfigs=4)
+        percentual_change = round(float(with_adblocker - without_adblocker) / float(without_adblocker) * 100.0, 1)
+        table_string += f"\n| {site.capitalize()} | {sigfig.round(with_adblocker, sigfigs=4)} | {sigfig.round(without_adblocker, sigfigs=4)} | {absolute_change} ({percentual_change}%) |"
 
     print(table_string)
 
