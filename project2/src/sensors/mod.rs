@@ -2,6 +2,7 @@ use std::fs::read_to_string;
 use std::time::{Duration, Instant};
 use std::result::Result;
 use std::option::Option;
+use regex::Regex;
 
 // Trait for all kind of sensors to implement
 pub trait Sensor {
@@ -113,10 +114,17 @@ impl RAPLSensor {
         })
     }
 
-    // TODO implement
     // Input should look like "xxxxxxxxx\n"
     fn convert_read_string_to_u128(input_string: String) -> u128 {
-        return 0;
+        // One or more digit(s) followed by a breakline
+        // My re is awesome so unwrap directly :P
+        let re = Regex::new(r"^([0-9]+)\n").unwrap();
+        if !re.is_match(input_string.as_str()) {
+            return 0;
+        }
+        let captures = re.captures(input_string.as_str()).unwrap();
+        let value: u128 = captures.get(1).map_or(0, |m| m.as_str().parse().unwrap());
+        return value;
     }
 }
 
@@ -131,4 +139,39 @@ pub fn start(){
     let max_measured_uj_string = read_to_string("/sys/devices/virtual/powercap/intel-rapl/intel-rapl:0/max_energy_range_uj").expect("Unable to read max ujs");
     //let max_measured_uj: i64 = max_measured_uj_string.parse().unwrap();
     println!("measured: {} out of {}", current_measured_uj_string, max_measured_uj_string);
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn raplsensor_convert_read_string_to_u128_zero() {
+        let result = RAPLSensor::convert_read_string_to_u128(String::from("0\n"));
+        assert_eq!(result, 0);
+    }
+
+    #[test]
+    fn raplsensor_convert_read_string_to_u128_one() {
+        let result = RAPLSensor::convert_read_string_to_u128(String::from("1\n"));
+        assert_eq!(result, 1);
+    }
+
+    #[test]
+    fn raplsensor_convert_read_string_to_u128_float() {
+        let result = RAPLSensor::convert_read_string_to_u128(String::from("20.22\n"));
+        assert_eq!(result, 0);
+    }
+
+    #[test]
+    fn raplsensor_convert_read_string_to_u128_garbage_end() {
+        let result = RAPLSensor::convert_read_string_to_u128(String::from("2022\nasnsdb11786"));
+        assert_eq!(result, 2022);
+    }
+
+    #[test]
+    fn raplsensor_convert_read_string_to_u128_large() {
+        let result = RAPLSensor::convert_read_string_to_u128(String::from("12345678901234567890123456789\n"));
+        assert_eq!(result, 12345678901234567890123456789);
+    }
 }
