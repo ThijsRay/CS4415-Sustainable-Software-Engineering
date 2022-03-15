@@ -3,6 +3,7 @@ use std::time::{Duration, Instant};
 use std::result::Result;
 use std::option::Option;
 use regex::Regex;
+use std::thread::sleep;
 
 // Trait for all kind of sensors to implement
 pub trait Sensor {
@@ -52,7 +53,7 @@ impl Sensor for RAPLSensor {
         if self.energy_end_position < self.energy_start_position {
             return (self.energy_max_range - self.energy_start_position) + self.energy_end_position;
         } else {
-            return self.energy_start_position - self.energy_end_position;
+            return self.energy_end_position - self.energy_start_position;
         }
     }
 
@@ -90,9 +91,9 @@ impl RAPLSensor {
         }
         // Check if RAPL is enabled at this location
         // No error received to unwrap is possible
-        if !enabled.unwrap().starts_with("1") {
+        /*if !enabled.unwrap().starts_with("1") {       ENABLED ONLY IN PARENT DIRECTORY NOT USABLE IN CURRENT STATE
             return Err("RAPL sensor is not enabled");
-        }
+        }*/
         // Check whether permission is set correctly of the measuring location
         let measuring_location = location.to_string() + "/energy_uj";
         let measured_energy = read_to_string(measuring_location);
@@ -100,7 +101,7 @@ impl RAPLSensor {
             return Err("Missing rights to read from /energy_uj");
         }
         // Retrieve the max range value of the sensor
-        let max_range_location = location.to_string() + "max_energy_range_uj";
+        let max_range_location = location.to_string() + "/max_energy_range_uj";
         let max_range_string = read_to_string(max_range_location).unwrap();
         let max_range = RAPLSensor::convert_read_string_to_u128(max_range_string);
 
@@ -129,16 +130,11 @@ impl RAPLSensor {
 }
 
 pub fn start(){
-    let enabled = read_to_string("/sys/devices/virtual/powercap/intel-rapl/enabled").expect("File not accessable");
-    if !enabled.starts_with("1") {
-        println!("Powercap is not enabled!");
-    }
-
-    let current_measured_uj_string = "0";
-    //let current_measured_uj: i64 = current_measured_uj_string.parse::<i64>().unwrap();
-    let max_measured_uj_string = read_to_string("/sys/devices/virtual/powercap/intel-rapl/intel-rapl:0/max_energy_range_uj").expect("Unable to read max ujs");
-    //let max_measured_uj: i64 = max_measured_uj_string.parse().unwrap();
-    println!("measured: {} out of {}", current_measured_uj_string, max_measured_uj_string);
+    let mut sensor = RAPLSensor::new(String::from("/sys/devices/virtual/powercap/intel-rapl/intel-rapl:0")).unwrap();
+    sensor.start_measuring();
+    sleep(Duration::new(2,0));
+    sensor.stop_measuring();
+    println!("measured {}uJ", sensor.get_measured_uj())
 }
 
 #[cfg(test)]
