@@ -3,7 +3,6 @@ use std::time::{Duration, Instant};
 use std::result::Result;
 use std::option::Option;
 use regex::Regex;
-use std::thread::sleep;
 
 // Trait for all kind of sensors to implement
 pub trait Sensor {
@@ -19,7 +18,7 @@ pub trait Sensor {
     fn get_duration(&self) -> Duration;
 }
 
-struct RAPLSensor {
+pub struct RAPLSensor {
     location: String,
     // Timer values
     timer_start_position: Option<Instant>,
@@ -127,14 +126,6 @@ impl RAPLSensor {
         let value: u128 = captures.get(1).map_or(0, |m| m.as_str().parse().unwrap());
         return value;
     }
-}
-
-pub fn start(){
-    let mut sensor = RAPLSensor::new(String::from("/sys/devices/virtual/powercap/intel-rapl/intel-rapl:0")).unwrap();
-    sensor.start_measuring();
-    sleep(Duration::new(2,0));
-    sensor.stop_measuring();
-    println!("measured {}uJ", sensor.get_measured_uj())
 }
 
 #[cfg(test)]
